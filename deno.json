@@ -1,0 +1,17 @@
+{
+  "exports": "./denops/@ddu-sources/worktree.ts",
+  "lock": false,
+  "tasks": {
+    "check": "deno task fmt-check && deno task lint && deno task test",
+    "fmt-check": "deno fmt --check denops",
+    "lint": "deno lint",
+    "test": "deno test -A"
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "exclude": ["no-import-prefix"]
+    }
+  },
+  "version": "0.1.0"
+}
