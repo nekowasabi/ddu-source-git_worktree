@@ -182,10 +182,26 @@ export class Source extends BaseSource<Params> {
         const action = item.action as ActionData;
         if (!action.path) continue;
 
-        await args.denops.call("chdir", action.path);
+        // git rev-parse --show-toplevel を使用してトップディレクトリを取得
+        let targetPath = action.path;
+        try {
+          const output = await runGitCommand(
+            ["rev-parse", "--show-toplevel"],
+            action.path,
+          );
+          targetPath = output.trim();
+        } catch (e: unknown) {
+          // git rev-parse が失敗した場合は action.path にフォールバック
+          console.warn(
+            `git rev-parse failed for ${action.path}, falling back to original path:`,
+            e,
+          );
+        }
+
+        await args.denops.call("chdir", targetPath);
         await args.denops.call(
           "ddu#kind#file#print",
-          `Changed directory to: ${action.path}`,
+          `Changed directory to: ${targetPath}`,
         );
         break;
       }
