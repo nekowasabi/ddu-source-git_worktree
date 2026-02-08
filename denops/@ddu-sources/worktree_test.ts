@@ -1,8 +1,11 @@
 import { assertEquals } from "jsr:@std/assert@^1.0.0";
 
-function parseWorktreeList(output: string): Array<{ path: string; commit: string; branch?: string }> {
+function parseWorktreeList(
+  output: string,
+): Array<{ path: string; commit: string; branch?: string }> {
   const lines = output.trim().split("\n");
-  const worktrees: Array<{ path: string; commit: string; branch?: string }> = [];
+  const worktrees: Array<{ path: string; commit: string; branch?: string }> =
+    [];
 
   for (const line of lines) {
     const parts = line.trim().split(/\s+/);
@@ -23,7 +26,8 @@ function parseWorktreeList(output: string): Array<{ path: string; commit: string
 }
 
 Deno.test("parseWorktreeList - basic", () => {
-  const output = "/path/to/main  HEAD\n/path/to/feature  abc1234 [feature-branch]";
+  const output =
+    "/path/to/main  HEAD\n/path/to/feature  abc1234 [feature-branch]";
   const result = parseWorktreeList(output);
   assertEquals(result.length, 2);
   assertEquals(result[0].path, "/path/to/main");
