@@ -55,7 +55,7 @@ nnoremap <Leader>tw <Cmd>call ddu#start({'name': 'worktree', 'sources': [{'name'
 |--------|-------------|
 | `add` | Add a new worktree. Prompts for branch name and path |
 | `remove` | Remove a worktree. Prompts for confirmation |
-| `cd` | Change current working directory to the selected worktree (uses `git rev-parse --show-toplevel` for robustness) |
+| `cd` | Change current working directory to the selected worktree |
 
 ### Example Key Mappings
 
